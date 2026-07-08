@@ -20,7 +20,7 @@ app.post("/chat", async (req, res) => {
         console.log("📩 Message from Frontend:", message);
 
         const response = await axios.post(
-            "http://127.0.0.1:5001/predict",
+            "https://wanderai-tsh7.onrender.com/predict",
             {
                 message: message
             },
