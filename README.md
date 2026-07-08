@@ -107,12 +107,12 @@ WanderAI
 
 ## 🎯 Supported Destinations
 
-- 🌴 Goa
-- 🏔️ Ooty
-- 🍃 Munnar
-- 🌸 Kodaikanal
-- 🇫🇷 Pondicherry
-- ❄️ Manali
+-  Goa
+-  Ooty
+-  Munnar
+-  Kodaikanal
+-  Pondicherry
+-  Manali
 
 ---
 
