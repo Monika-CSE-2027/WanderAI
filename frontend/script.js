@@ -562,7 +562,7 @@ function sendUserMessage() {
     // Analyze input patterns
    showTypingIndicator();
 
-fetch("http://localhost:5000/chat", {
+fetch("https://wanderai-backend-zr0k.onrender.com/chat", {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
