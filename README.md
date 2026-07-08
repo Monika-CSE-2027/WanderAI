@@ -11,11 +11,7 @@ WanderAI is an AI-powered travel planning website with an intelligent chatbot th
 - 🤖 AI-powered Travel Chatbot
 - 🧠 Machine Learning-based Destination Recommendation
 - 🌴 Personalized Travel Suggestions
-- 💰 Budget Estimation
-- 📅 Best Season to Visit
-- 🗺️ Day-wise Travel Itinerary
 - ✈️ Interactive Travel Planning
-- 📱 Responsive User Interface
 - 🔗 Flask API Integration with Node.js
 
 ---
