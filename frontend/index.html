@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WanderAI – Smart AI Travel Assistant & Copilot</title>
+    <meta name="description" content="Plan your perfect journey with WanderAI, the premium futuristic AI-powered travel assistant. Custom itineraries, route planners, and budgets in seconds.">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Background Decorative Glows -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <!-- ==========================================
+         1. Loading Screen
+         ========================================== -->
+    <div id="loading-screen">
+        <div class="loader-logo">
+            <svg viewBox="0 0 24 24">
+                <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5L21 16z"/>
+            </svg>
+            <span>WanderAI</span>
+        </div>
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         2. Sticky Navigation Bar
+         ========================================== -->
+    <header id="site-header">
+        <div class="navbar">
+            <a href="#" class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24">
+                    <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5L21 16z"/>
+                </svg>
+                <span>WanderAI</span>
+            </a>
+
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="#" class="nav-link active">Home</a></li>
+                    <li><a href="#features" class="nav-link">Features</a></li>
+                    <li><a href="#destinations" class="nav-link">Destinations</a></li>
+                    <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+                    <li><a href="#reviews" class="nav-link">Reviews</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" id="theme-toggle" title="Toggle Light/Dark Mode">
+                    <!-- Sun Icon (shown in dark mode) -->
+                    <svg class="sun-icon" viewBox="0 0 24 24" style="display: block;">
+                        <circle cx="12" cy="12" r="5"/>
+                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                    <!-- Moon Icon (shown in light mode) -->
+                    <svg class="moon-icon" viewBox="0 0 24 24" style="display: none;">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+                <a href="#contact" class="btn btn-primary" id="nav-cta">Start Planning</a>
+                <!-- Hamburger Menu -->
+                <button class="hamburger" id="hamburger-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================
+         3. Hero Section
+         ========================================== -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="badge-ai">
+                <span class="badge-pulse"></span>
+                <span>Next-Gen Travel Engine</span>
+            </div>
+            <h1>Plan Your Perfect <br>Trip with <span class="text-gradient">AI</span></h1>
+            <p class="hero-sub">
+                Get personalized travel recommendations, smart budget analysis, and real-time flight itineraries through our intelligent copilot dashboard.
+            </p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="toggleChat()">
+                    Start Planning
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+                <a href="#destinations" class="btn btn-secondary">Explore Destinations</a>
+            </div>
+            
+            <!-- Statistics Counters -->
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3 class="counter" data-target="50000">0</h3>
+                    <p>Trips Planned</p>
+                </div>
+                <div class="stat-item">
+                    <h3 class="counter" data-target="120">0</h3>
+                    <p>Destinations</p>
+                </div>
+                <div class="stat-item">
+                    <h3>4.9★</h3>
+                    <p>Traveler Rating</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <!-- Floating Elements -->
+            <div class="floating-badge" id="floatingBadge">
+                <span id="badgeIcon">✈️</span>
+                <span id="badgeText">Choose a Destination</span>
+            </div>
+            
+            <!-- Dashboard Preview Pane -->
+            <div class="hero-dashboard glass-panel">
+                <div class="dash-header">
+                    <div class="dash-title">
+                        <svg width="18" height="18" fill="#3b82f6" viewBox="0 0 24 24">
+                            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5L21 16z"/>
+                        </svg>
+                        <span>Flight Copilot Active</span>
+                    </div>
+                    <div class="dash-status">
+                        <span class="badge-pulse"></span> SYSTEM: ENGAGED
+                    </div>
+                </div>
+                
+                <!-- Flight Route Sim -->
+                <div class="dash-route">
+                    <div class="route-label">
+                    <strong>DEL</strong>
+                    <span>Delhi, IN</span>
+                    </div>
+
+                    <div class="route-label">
+                    <strong id="routeCode">GOA</strong>
+                    <span id="routeCity">Goa, IN</span>
+                    </div>
+                    <svg class="route-svg">
+                        <!-- Curved flight path -->
+                        <path id="flight-curve" class="route-path" d="M 60,60 Q 240,-10 420,60" />
+                        <!-- Flying airplane -->
+                        <g class="route-plane">
+                            <path d="M-6,-6 L6,0 L-6,6 L-2,0 Z" fill="#06b6d4" />
+                        </g>
+                    </svg>
+                </div>
+
+                <!-- Live Stream Feed Cards -->
+                <div class="dash-cards-flow">
+
+    <div class="mini-card">
+        <div class="mini-card-info">
+            <span class="mini-card-icon" id="hotelIcon">🏨</span>
+
+            <div>
+                <div class="mini-card-name" id="hotelName">
+                    Taj Exotica Resort
+                </div>
+
+                <div
+                    id="hotelDesc"
+                    style="font-size:0.7rem;color:var(--text-secondary);">
+                    Premium beachfront luxury stay matched
+                </div>
+            </div>
+        </div>
+
+        <div class="mini-card-price">
+            Verified
+        </div>
+    </div>
+
+
+    <div class="mini-card">
+        <div class="mini-card-info">
+            <span class="mini-card-icon" id="activityIcon">🤿</span>
+
+            <div>
+                <div class="mini-card-name" id="activityName">
+                    Grand Island Scuba
+                </div>
+
+                <div
+                    id="activityDesc"
+                    style="font-size:0.7rem;color:var(--text-secondary);">
+                    Adventure activities reservation approved
+                </div>
+            </div>
+        </div>
+
+        <div class="mini-card-price">
+            Matched
+        </div>
+    </div>
+
+</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         4. Features Section
+         ========================================== -->
+    <section id="features" class="reveal">
+        <div class="section-header">
+            <span class="section-badge">Capabilities</span>
+            <h2 class="section-title">Futuristic Travel Features</h2>
+            <p class="section-desc">Experience an intelligent planning engine designed to calculate, predict, and style your travel seamlessly.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card glass-panel">
+                <div class="feature-icon-wrapper">🤖</div>
+                <h3>AI Travel Assistant</h3>
+                <p>Chat with our intelligent autopilot module to fetch routes, booking options, and customized travel packages in seconds.</p>
+            </div>
+            <div class="feature-card glass-panel">
+                <div class="feature-icon-wrapper">💰</div>
+                <h3>Budget-Based Planning</h3>
+                <p>Define your price limit and watch WanderAI construct the perfect accommodation and transportation recommendations.</p>
+            </div>
+            <div class="feature-card glass-panel">
+                <div class="feature-icon-wrapper">❤️</div>
+                <h3>Couple Trips</h3>
+                <p>Discover candlelit beach side dining, private view-points, and luxury resort options tailored for romantic escapes.</p>
+            </div>
+            <div class="feature-card glass-panel">
+                <div class="feature-icon-wrapper">👨‍👩‍👧</div>
+                <h3>Family Tours</h3>
+                <p>Safe, engaging, and kid-friendly recommendations including theme parks, custom resorts, and reliable transport setups.</p>
+            </div>
+            <div class="feature-card glass-panel">
+                <div class="feature-icon-wrapper">🏔</div>
+                <h3>Adventure Travel</h3>
+                <p>Find premium trekking zones, scuba spots, paragliding routes, and extreme outdoor packages curated for adrenaline seekers.</p>
+            </div>
+            <div class="feature-card glass-panel">
+                <div class="feature-icon-wrapper">🎤</div>
+                <h3>Voice Search</h3>
+                <p>Talk directly to the AI Flight Assistant using natural language commands without typing a single prompt.</p>
+            </div>
+            <div class="feature-card glass-panel">
+                <div class="feature-icon-wrapper">📅</div>
+                <h3>Smart Itinerary</h3>
+                <p>Get minute-by-minute schedules matching optimal travel times, routing sequences, and tourist entry durations.</p>
+            </div>
+            <div class="feature-card glass-panel">
+                <div class="feature-icon-wrapper">🧮</div>
+                <h3>Budget Calculator</h3>
+                <p>Instantly estimate your food, local commuting, tax, and activity prices in real time, with zero hidden charges.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         5. Popular Destinations Section
+         ========================================== -->
+    <section id="destinations" class="reveal">
+        <div class="section-header">
+            <span class="section-badge">Hotspots</span>
+            <h2 class="section-title">Popular Destinations</h2>
+            <p class="section-desc">Select any premium location to unlock automated detailed itineraries and estimated budgets instantly.</p>
+        </div>
+
+        <div class="destinations-carousel-container">
+            <div class="destinations-grid" id="destinations-grid">
+                <!-- Card 1: Goa -->
+                <div class="dest-card" onclick="openModal('Goa')">
+                    <div class="dest-img-container">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Goa Beaches">
+                    </div>
+                    <div class="dest-card-gradient"></div>
+                    <div class="dest-card-content">
+                        <div class="dest-top-row">
+                            <span class="dest-rating">4.8 ★</span>
+                            <span class="dest-budget">₹15,000+</span>
+                        </div>
+                        <h3>Goa</h3>
+                        <p>Beautiful sunny beaches, ancient historic Portuguese forts, and vibrant night celebrations.</p>
+                        <button class="btn btn-primary dest-btn">Explore Plan</button>
+                    </div>
+                </div>
+
+                <!-- Card 2: Ooty -->
+                <div class="dest-card" onclick="openModal('Ooty')">
+                    <div class="dest-img-container">
+                        <img src="https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=800&q=80" alt="Ooty Hills">
+                    </div>
+                    <div class="dest-card-gradient"></div>
+                    <div class="dest-card-content">
+                        <div class="dest-top-row">
+                            <span class="dest-rating">4.7 ★</span>
+                            <span class="dest-budget">₹12,000+</span>
+                        </div>
+                        <h3>Ooty</h3>
+                        <p>Misty hills, expansive green tea gardens, and historical toy train rides through deep mountain valleys.</p>
+                        <button class="btn btn-primary dest-btn">Explore Plan</button>
+                    </div>
+                </div>
+
+                <!-- Card 3: Munnar -->
+                <div class="dest-card" onclick="openModal('Munnar')">
+                    <div class="dest-img-container">
+                        <img src="https://images.unsplash.com/photo-1542856391-010fb87dcfed?auto=format&fit=crop&w=800&q=80" alt="Munnar Tea Gardens">
+                    </div>
+                    <div class="dest-card-gradient"></div>
+                    <div class="dest-card-content">
+                        <div class="dest-top-row">
+                            <span class="dest-rating">4.9 ★</span>
+                            <span class="dest-budget">₹14,000+</span>
+                        </div>
+                        <h3>Munnar</h3>
+                        <p>Breathtaking green mountain ridges, cascading waterfalls, and tea estate plantations.</p>
+                        <button class="btn btn-primary dest-btn">Explore Plan</button>
+                    </div>
+                </div>
+
+                <!-- Card 4: Kodaikanal -->
+                <div class="dest-card" onclick="openModal('Kodaikanal')">
+                    <div class="dest-img-container">
+                        <img src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=800&q=80" alt="Kodaikanal Lakes">
+                    </div>
+                    <div class="dest-card-gradient"></div>
+                    <div class="dest-card-content">
+                        <div class="dest-top-row">
+                            <span class="dest-rating">4.6 ★</span>
+                            <span class="dest-budget">₹11,000+</span>
+                        </div>
+                        <h3>Kodaikanal</h3>
+                        <p>Deep misty pine forests, serene lakes, and scenic rock formations high above cloud level.</p>
+                        <button class="btn btn-primary dest-btn">Explore Plan</button>
+                    </div>
+                </div>
+
+                <!-- Card 5: Pondicherry -->
+                <div class="dest-card" onclick="openModal('Pondicherry')">
+                    <div class="dest-img-container">
+                        <img src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=800&q=80" alt="Pondicherry Streets">
+                    </div>
+                    <div class="dest-card-gradient"></div>
+                    <div class="dest-card-content">
+                        <div class="dest-top-row">
+                            <span class="dest-rating">4.7 ★</span>
+                            <span class="dest-budget">₹10,000+</span>
+                        </div>
+                        <h3>Pondicherry</h3>
+                        <p>Charming French architectural quarters, tranquil meditation centers, and quiet rocky beaches.</p>
+                        <button class="btn btn-primary dest-btn">Explore Plan</button>
+                    </div>
+                </div>
+
+                <!-- Card 6: Manali -->
+                <div class="dest-card" onclick="openModal('Manali')">
+                    <div class="dest-img-container">
+                        <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=800&q=80" alt="Manali Snow Mountains">
+                    </div>
+                    <div class="dest-card-gradient"></div>
+                    <div class="dest-card-content">
+                        <div class="dest-top-row">
+                            <span class="dest-rating">4.9 ★</span>
+                            <span class="dest-budget">₹18,000+</span>
+                        </div>
+                        <h3>Manali</h3>
+                        <p>Snowy mountain slopes, extreme paragliding activities, and scenic valley passes.</p>
+                        <button class="btn btn-primary dest-btn">Explore Plan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-controls">
+            <button class="carousel-btn" id="carousel-prev" title="Previous Destinations">
+                <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+            </button>
+            <button class="carousel-btn" id="carousel-next" title="Next Destinations">
+                <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         6. How It Works Section
+         ========================================== -->
+    <section id="how-it-works" class="reveal">
+        <div class="section-header">
+            <span class="section-badge">Process</span>
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-desc">Four simple steps to outline, calculate, and trigger your entire custom vacation outline.</p>
+        </div>
+
+        <div class="timeline">
+            <!-- Step 1 -->
+            <div class="timeline-item">
+                <div class="timeline-badge">1</div>
+                <div class="timeline-panel glass-panel">
+                    <h3>Tell us your preferences</h3>
+                    <p>Enter your favorite travel style, dream destination scope, and maximum price boundary in our inputs.</p>
+                </div>
+            </div>
+            <!-- Step 2 -->
+            <div class="timeline-item">
+                <div class="timeline-badge">2</div>
+                <div class="timeline-panel glass-panel">
+                    <h3>Assistant analyzes requirements</h3>
+                    <p>Our futuristic planning script matches historical routes and rates to build custom calculations.</p>
+                </div>
+            </div>
+            <!-- Step 3 -->
+            <div class="timeline-item">
+                <div class="timeline-badge">3</div>
+                <div class="timeline-panel glass-panel">
+                    <h3>Get recommendations</h3>
+                    <p>Instantly receive visual layouts containing weather details, top local highlights, and scenic stays.</p>
+                </div>
+            </div>
+            <!-- Step 4 -->
+            <div class="timeline-item">
+                <div class="timeline-badge">4</div>
+                <div class="timeline-panel glass-panel">
+                    <h3>Receive personalized itinerary</h3>
+                    <p>Acquire your complete hour-by-hour timeline. Send details straight to your chat console with a single click.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         7. Testimonials Section
+         ========================================== -->
+    <section id="reviews" class="reveal">
+        <div class="section-header">
+            <span class="section-badge">Social Proof</span>
+            <h2 class="section-title">What Travelers Say</h2>
+            <p class="section-desc">Read reviews from verified explorers who leveraged WanderAI to coordinate their getaways.</p>
+        </div>
+
+        <div class="reviews-grid">
+            <div class="review-card glass-panel">
+                <p class="review-text">"WanderAI saved me hours of searching. The Goa recommendations were spot on, and the chatbot instantly constructed a detailed beach plan matching my budget limits!"</p>
+                <div class="review-profile">
+                    <div class="review-avatar">RS</div>
+                    <div class="profile-info">
+                        <h4>Rohan Sharma</h4>
+                        <span>Explored Goa</span>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card glass-panel">
+                <p class="review-text">"The copilot layout feels like using a premium dashboard. I clicked 'Munnar Escape' and the assistant immediate calculated flight route nodes from Delhi. Incredible!"</p>
+                <div class="review-profile">
+                    <div class="review-avatar">AK</div>
+                    <div class="profile-info">
+                        <h4>Anjali Kapoor</h4>
+                        <span>Explored Munnar</span>
+                        <div class="review-stars">★★★★★</div>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card glass-panel">
+                <p class="review-text">"I love the glassmorphic dark mode styling. Real-time accordion answers, custom scroll bars, and smart forms. Truly a startup quality frontend."</p>
+                <div class="review-profile">
+                    <div class="review-avatar">VM</div>
+                    <div class="profile-info">
+                        <h4>Vikram Malhotra</h4>
+                        <span>Explored Manali</span>
+                        <div class="review-stars">★★★★☆</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         8. FAQ Section
+         ========================================== -->
+    <section id="faqs" class="reveal">
+        <div class="section-header">
+            <span class="section-badge">FAQ</span>
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-desc">Quick, detailed answers regarding our features, pricing estimation logic, and destination scopes.</p>
+        </div>
+
+        <div class="faq-container">
+            <div class="faq-item glass-panel">
+                <div class="faq-header">
+                    <span>How does the AI assistant plan my trip?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                </div>
+                <div class="faq-body">
+                    <div class="faq-content">
+                        WanderAI maps your text commands and parameters against predefined location graphs, price tiers, and activity catalogs. It models the ideal itinerary flow matching your preferences.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item glass-panel">
+                <div class="faq-header">
+                    <span>Are the budget calculations accurate?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                </div>
+                <div class="faq-body">
+                    <div class="faq-content">
+                        Yes, our estimates cover local transit, average hotel bookings, meal pricing, and entry cards. These reflect standard rates within seasonal variance indexes.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item glass-panel">
+                <div class="faq-header">
+                    <span>Can I customize the generated itineraries?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                </div>
+                <div class="faq-body">
+                    <div class="faq-content">
+                        Absolutely! In the flight assistant widget, you can ask for adjustments such as "make the Goa plan more relaxing" or "add adventure activities to Munnar" to update recommendation listings.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item glass-panel">
+                <div class="faq-header">
+                    <span>What destinations are supported?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                </div>
+                <div class="faq-body">
+                    <div class="faq-content">
+                        Currently, WanderAI includes detailed flight logs and deep localized database plans for Goa, Ooty, Munnar, Kodaikanal, Pondicherry, and Manali, with additional global destinations coming soon.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         9. Contact & Newsletter Section
+         ========================================== -->
+    <section id="contact" class="reveal">
+        <div class="contact-newsletter-grid">
+            <!-- Form Block -->
+            <div class="contact-form-panel glass-panel">
+                <span class="section-badge">Reach Out</span>
+                <h3 style="font-size: 1.8rem; margin-bottom: 0.5rem;">Send a Message</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 0.95rem;">Interested in customized deals? Write our admin group.</p>
+                
+                <form id="contact-form" onsubmit="handleContactSubmit(event)">
+                    <div class="form-group">
+                        <input type="text" class="form-input" placeholder=" " required id="contact-name">
+                        <label class="form-label">Full Name</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-input" placeholder=" " required id="contact-email">
+                        <label class="form-label">Email Address</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-input" placeholder=" " required id="contact-message"></textarea>
+                        <label class="form-label">Your Message</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Send Message</button>
+                </form>
+            </div>
+
+            <!-- Newsletter Block -->
+            <div class="newsletter-panel glass-panel">
+                <div class="bg-glow" style="width: 300px; height: 300px; top: -100px; right: -100px;"></div>
+                <h3>Get Travel Inspiration Delivered</h3>
+                <p>Subscribe to our periodic newsletter to receive exclusive deals, scenic imagery, and custom itineraries before others.</p>
+                <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+                    <input type="email" class="form-input" placeholder="Enter your email" required id="newsletter-email">
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         10. Footer Section
+         ========================================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <a href="#" class="logo">
+                    <svg class="logo-icon" viewBox="0 0 24 24">
+                        <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5L21 16z"/>
+                    </svg>
+                    <span>WanderAI</span>
+                </a>
+                <p class="footer-desc">Redefining holiday schedules through glassmorphic, intelligent frontend automation layouts.</p>
+                <div class="footer-socials">
+                    <a href="#" class="social-link" title="Twitter">
+                        <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+                    </a>
+                    <a href="#" class="social-link" title="Instagram">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37zM17.5 6.5h.01"/></svg>
+                    </a>
+                    <a href="#" class="social-link" title="GitHub">
+                        <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul class="footer-list">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#destinations">Destinations</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Support</h4>
+                <ul class="footer-list">
+                    <li><a href="#faqs">FAQs</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Contact Info</h4>
+                <ul class="footer-list" style="color: var(--text-secondary); font-size: 0.9rem;">
+                    <li>📩 monika@wanderai.io</li>
+                    <li>📞 +91 99944 xxxxx</li>
+                    <li>📍 Tamil Nadu, India</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 WanderAI Technologies Inc. All Rights Reserved.</p>
+            <p>Designed for premium explorer workflows.</p>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button class="back-to-top glass-panel" id="back-to-top" title="Scroll To Top" onclick="scrollToTop()">
+        <svg viewBox="0 0 24 24"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>
+    </button>
+
+    <!-- ==========================================
+         11. WanderAI Flight Assistant HUD Widget
+         ========================================== -->
+    <div class="chat-launcher-container">
+        <button class="chat-launcher" id="chat-launcher" onclick="toggleChat()" title="Launch WanderAI Copilot">
+            <svg class="launcher-icon" viewBox="0 0 24 24">
+                <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5L21 16z"/>
+            </svg>
+        </button>
+    </div>
+
+    <div class="chat-hud glass-panel" id="chat-hud">
+        <!-- HUD Header -->
+        <div class="hud-header">
+            <div class="hud-title-bar">
+                <div class="hud-title">
+                    <div class="hud-avatar">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5L21 16z"/>
+                        </svg>
+                    </div>
+                    <div class="hud-meta">
+                        <h3>WanderAI Copilot</h3>
+                        <span>System Version v2.6</span>
+                    </div>
+                </div>
+                <div class="hud-status-indicator">
+                    <span class="hud-pulse"></span> ONLINE
+                </div>
+            </div>
+
+            <!-- Route Map Visual -->
+            <div class="hud-route-container">
+                <!-- Clouds -->
+                <span class="hud-cloud cloud-1">☁️</span>
+                <span class="hud-cloud cloud-2">☁️</span>
+                
+                <div class="hud-route-point" id="route-start">DEL <span>Source</span></div>
+                <div class="hud-route-point" id="route-end" style="text-align: right;">GOA <span>Destination</span></div>
+                <svg class="hud-route-svg">
+                    <path id="hud-flight-curve" class="hud-route-path" d="M 40,32 Q 220,5 380,32" />
+                    <g class="hud-route-plane">
+                        <!-- Tiny paper plane -->
+                        <path d="M-5,-5 L5,0 L-5,5 L-1.5,0 Z" fill="#06b6d4" />
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Chat Logs (Messages) -->
+        <div class="hud-messages" id="chat-messages">
+            <!-- Initial Assistant Welcome -->
+            <div class="msg-wrapper assistant">
+                <div class="msg-avatar">✈️</div>
+                <div class="msg-bubble">
+                    Hello Traveler! 👋 <br>
+                    I'm your WanderAI Flight Assistant. <br>
+                    Tell me your destination, budget, and travel style, and I'll help you plan your perfect journey.
+                    <span class="msg-time">Just now</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Suggestions Chips -->
+        <div class="hud-suggestions" id="chat-suggestions">
+            <button class="suggestion-chip" onclick="handleSuggestion('Beach Vacation')">🏖️ Beach Vacation</button>
+            <button class="suggestion-chip" onclick="handleSuggestion('Mountain Escape')">🏔️ Mountain Escape</button>
+            <button class="suggestion-chip" onclick="handleSuggestion('Couple Trip')">❤️ Couple Trip</button>
+            <button class="suggestion-chip" onclick="handleSuggestion('Family Tour')">👨‍👩‍👧 Family Tour</button>
+            <button class="suggestion-chip" onclick="handleSuggestion('Budget Travel')">🎒 Budget Travel</button>
+            <button class="suggestion-chip" onclick="handleSuggestion('International Tour')">🌍 International Tour</button>
+        </div>
+
+        <!-- Chat Input Row -->
+        <div class="hud-input-area">
+            <button class="chat-action-btn" title="Voice Input" onclick="triggerVoice()">
+                <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
+            </button>
+            
+            <div class="chat-input-wrapper">
+                <input type="text" class="chat-input" placeholder="Type a message or location..." id="chat-input-field" onkeypress="handleChatKeyPress(event)">
+                <button class="chat-emoji-btn" onclick="insertEmoji()">😊</button>
+            </div>
+
+            <button class="chat-action-btn btn-send" title="Send message" onclick="sendUserMessage()">
+                <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         12. Interactive Destination Detail Modal
+         ========================================== -->
+    <div class="modal-overlay" id="destination-modal" onclick="closeModalOnOverlay(event)">
+        <div class="modal-content glass-panel">
+            <button class="modal-close" onclick="closeModal()" title="Close Details">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+            <div class="modal-img-wrapper">
+                <img id="modal-img" src="" alt="Destination Image">
+                <div class="modal-img-overlay"></div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-header-row">
+                    <div>
+                        <h2 class="modal-title" id="modal-title">Destination</h2>
+                        <div class="modal-badges">
+                            <span class="modal-badge tag-budget" id="modal-budget">₹15,000+</span>
+                            <span class="modal-badge tag-season" id="modal-season">Best Season: Nov-Feb</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="modal-description" id="modal-description">Detailed descriptive text will go here...</p>
+                
+                <div class="modal-details-section">
+                    <h3 class="modal-details-title">Top Recommended Activities</h3>
+                    <ul class="modal-list" id="modal-activities">
+                        <!-- Populated by JavaScript -->
+                    </ul>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="closeModal()">Close Window</button>
+                    <button class="btn btn-primary" id="modal-cta-btn">Send to Assistant</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main JavaScript Core -->
+    <script src="script.js"></script>
+</body>
+</html>
